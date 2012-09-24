@@ -2,7 +2,7 @@
 
 function connect() //connects to the mysql server and opens the assassins database
 {
-	$connect = @mysql_connect("dmapplications.db.9305917.hostedresource.com", "dmapplications", "BanceMarathon1");
+	$connect = @mysql_connect("dmapplications.mattgerstman.com", "dmapplications", "BanceMarathon1");
 
 //connect to server
 

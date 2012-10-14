@@ -44,7 +44,7 @@ function ae_detect_ie()
 
 
 <h1>Dance Marathon Captain Application</h1>
-<p>should work test test</p>
+<p>i hope should work test test</p>
 <?php  if (ae_detect_ie()) {  ?>
 
 We apologize but Internet Explorer is not supported on this application. Please try <a href="http://www.google.com/Chrome">Google Chrome</a> or <a href="http://getfirefox.com">Mozilla Firefox</a>.

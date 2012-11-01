@@ -1,12 +1,11 @@
 <?php 
 
-$server = "SERVER_HERE";
-$username = "USERNAME_HERE";
-$password = "PASSWORD_HERE"
-$database = "DATABASE_NAME_HERE";
-
 function connect() //connects to the mysql server and opens the assassins database
 {
+	$server = "SERVER_HERE";
+	$username = "USERNAME_HERE";
+	$password = "PASSWORD_HERE"
+	$database = "DATABASE_NAME_HERE";
 	$connect = @mysql_connect($server, $username, $password);
 
 //connect to server

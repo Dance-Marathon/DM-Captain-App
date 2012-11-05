@@ -100,19 +100,9 @@ if ($ufid)
 
 <table class="interview_times">
 
-<?php if (($teama == 9) || ($teamb == 9)) {?>
-
-<p>Interviews for Morale captains will be held Sunday, Sept 16th - Thursday, Sept 20th from 5pm to 10pm.  Please e-mail <a href="mailto:floridadm@floridadm.org">floridadm@floridadm.org</a> with your availability to schedule your interview.</p>
-
-<?php } if (($teama == 5) || ($teamb == 5)) {?>
-
-<p>Interviews for Family Relations captains will be held Sunday, Sept 16th - Thursday, Sept 20th from 5pm to 10pm.  Please e-mail <a href="mailto:floridadm@floridadm.org">floridadm@floridadm.org</a> with your availability to schedule your interview.</p>
-
-
-<?php } ?>
 <form action="page5.php" method="post">
 	<tr>
-	<?php if (($teama != 9) && ($teama !=5)) { ?>
+
 <td><table>
 	<tr><td colspan="2"><h2><?php echo $team1;?></h2></td></tr>
 	<tr><td>Date:</td><td><select id="date1" name="date">
@@ -128,7 +118,7 @@ if ($ufid)
 		</select>
 	</td>	</tr>
 	</table></td> <?php } ?>
-	<?php if ($teamb) {  if (($teamb != 9) && ($teamb !=5)) { ?>
+
 	<td><table>
 	<tr><td colspan="2"><h2><?php echo $team2;?></h2></td></tr>
 	<tr><td>Date:</td><td><select id="date2" name="date">
@@ -144,7 +134,7 @@ if ($ufid)
 		</select>
 	</td></tr>
 	</table></td>
-	<?php } } ?>
+
 	</tr>
 		<tr id="submitRow2"><td colspan="2" style="text-align:center"><input type="submit" id="submitButton" value="Preview Application" style="margin-top:20px;"/></td>
 

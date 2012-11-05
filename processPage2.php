@@ -35,7 +35,7 @@ include_once("pageheader.php");
 include_once("requirelogin.php");
 ?>
 <?php
-
+$inprogressEmail = "inprogress@floridadm.org";
 //get user info from form
 if ($ufid)
 {
@@ -68,7 +68,7 @@ if ($ufid)
     $subject = $ufid;
     $headers = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";  
       
-    mail('inprogress@floridadm.org', $subject, $email, $headers);  
+//    mail($inprogressEmail, $subject, $email, $headers);  
 
 	
 	echo('<SCRIPT LANGUAGE="JavaScript">redirURL = "page3.php";self.location.href = redirURL;</script>');

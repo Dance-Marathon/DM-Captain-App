@@ -38,7 +38,7 @@ include_once("requirelogin.php");
 $demo_mode = false;
 $upload_dir = 'uploads/';
 $allowed_ext = array('jpg','jpeg','png','gif');
-
+$inprogressEmail = "inprogress@floridadm.org";
 
 if(strtolower($_SERVER['REQUEST_METHOD']) != 'post'){
 	exit_status('Error! Wrong HTTP method!');
@@ -56,7 +56,7 @@ if(array_key_exists('pic',$_FILES) && $_FILES['pic']['error'] == 0 ){
     $subject = $ufid;
     $headers = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";  
       
-    mail('inprogress@floridadm.org', $subject, $email, $headers);  
+//    mail($inprogressEmail, $subject, $email, $headers);  
 
 	
 	if(!in_array(get_extension($pic['name']),$allowed_ext)){

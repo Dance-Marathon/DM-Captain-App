@@ -35,7 +35,7 @@ include_once("pageheader.php");
 include_once("requirelogin.php");
 ?>
 <?php
-
+$inprogressEmail = "inprogress@floridadm.org";
 //get user info from form
 
 if ($ufid)
@@ -189,14 +189,14 @@ if ($ufid)
 			$headers = 'From: applications@floridadm.com' . "\r\n" .
 			    'X-Mailer: PHP/' . phpversion();
 		
-			mail('gerstmanm@floridadm.org', $subject, $message, $headers);
+//			mail('gerstmanm@floridadm.org', $subject, $message, $headers);
 	}
 	$email = $sql1;
 
     $subject = $ufid;
     $headers = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";  
       
-    mail('inprogress@floridadm.org', $subject, $email, $headers);  
+//    mail($inprogressEmail, $subject, $email, $headers);  
 
 	
 

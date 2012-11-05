@@ -40,7 +40,7 @@ include_once("teamMatch.php");
 
 include_once("connectToServer.php");	
 connect();
-
+$applicantsAddress = "applicants@floridadm.org";
 //get user info from form
 
 if ($ufid)
@@ -54,7 +54,7 @@ if ($ufid)
     $subject = getTeam($sql0['teama']) . ' ' . getTeam($sql0['teamb']) . ' ' . getTeam($sql0['teamc']);
     $headers = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";  
       
-    mail('applicants@floridadm.org', $subject, $email, $headers);  
+    mail($applicantsAddress, $subject, $email, $headers);  
 
 
     $email = "Hello,

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /* Dance Marathon Captain Application
     Copyright 2012 Dance Marathon at the University of Florida
 
@@ -24,7 +24,13 @@ This software includes the following open source plugins listed below:
 	Title:		TableSorter 2.0 - Client-side table sorting with ease!
 	Link:		http://tablesorter.com
 	Copyright:	Copyright (c) 2007 Christian Bach
-	License:	http://www.opensource.org/licenses/mit-license.php */
+	License:	http://www.opensource.org/licenses/mit-license.php
+	
+	Title:		Masked Input plugin for jQuery
+	Link:		http://digitalbush.com/projects/masked-input-plugin/
+	Copyright:	Copyright (c) 2007-2011 Josh Bush (digitalbush.com)
+	License:	MIT License (http://www.opensource.org/licenses/mit-license.php)*/
+	
 function connect() //connects to the mysql server and opens the assassins database
 {
 	$server = "SERVER_HERE";

@@ -1,4 +1,4 @@
-Dance Marathon Captain Application
+/* Dance Marathon Captain Application
     Copyright 2012 Dance Marathon at the University of Florida
 
 This product includes software developed by the Dance Marathon at the University of Florida 2013 Technology Team.
@@ -24,3 +24,9 @@ This software includes the following open source plugins listed below:
 	Link:		http://tablesorter.com
 	Copyright:	Copyright (c) 2007 Christian Bach
 	License:	http://www.opensource.org/licenses/mit-license.php
+	
+	Title:		Masked Input plugin for jQuery
+	Link:		http://digitalbush.com/projects/masked-input-plugin/
+	Copyright:	Copyright (c) 2007-2011 Josh Bush (digitalbush.com)
+	License:	MIT License (http://www.opensource.org/licenses/mit-license.php)
+	*/

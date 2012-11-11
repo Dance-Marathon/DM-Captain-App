@@ -207,15 +207,4 @@ else
 echo('<SCRIPT LANGUAGE="JavaScript">history.back();</script>');
 }
 	
-?>   mail('inprogress@floridadm.org', $subject, $email, $headers);  
-
-	
-
-echo('<SCRIPT LANGUAGE="JavaScript">redirURL = "page2.php";self.location.href = redirURL;</script>');
-}
-else
-{
-echo('<SCRIPT LANGUAGE="JavaScript">history.back();</script>');
-}
-	
-?>
+?> 

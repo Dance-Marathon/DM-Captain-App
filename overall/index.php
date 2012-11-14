@@ -62,7 +62,7 @@ include_once("../pageheader.php");
 <div class="container">
 
 <h1>Dance Marathon Captain Application</h1>
-
+<p> Testing </p>
 <div align="center">
 <form method="post" action="processLogin.php">
 <table>

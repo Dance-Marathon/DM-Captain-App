@@ -38,7 +38,7 @@ include_once("../pageheader.php");
 $team = $_POST['team'];
 $password = md5($_POST['password']);
 
-if ($password == "1c7943b67b2c1a6f9b1468ee9e830509")
+if ($password == "1c7943b67b2c1a6f9b1468ee9e830509" || $password == "c76eef6e3c9fe6bb8ece734968f8ece5" )
 {
 	$_SESSION['login'] = $password;
 //	setcookie('login', $password, 0, '/', '.mattgerstman.com');

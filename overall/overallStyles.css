@@ -1,0 +1,54 @@
+#nav {
+	width: 100%;
+	float: left;
+	margin: 0 0 3em 0;
+	padding: 0;
+	list-style: none;
+	background-color: #f2f2f2;
+	border-bottom: 1px solid #ccc; 
+	border-top: 1px solid #ccc; 
+}
+	
+#nav li {
+	float: left; 
+}
+	
+#nav li a {
+	display: block;
+	padding: 8px 15px;
+	text-decoration: none;
+	font-weight: bold;
+	color: #069;
+	border-right: 1px solid #ccc; 
+}
+	
+#nav li a:hover {
+	color: #c00;
+	background-color: #fff; 
+}
+
+#overallSection {
+	text-align:center;
+	display: none;
+}
+
+#questionSection {
+	text-align:center;
+	display: none;
+}
+
+#addOverall {
+	width: 500px;
+	margin: auto;
+	text-align: center;
+}
+
+#overallTable {
+	width: 500px;
+	margin: 30px auto 30px auto;
+	border: 1px solid gray;
+}
+
+#overallTable td {
+	padding: 10px;
+}

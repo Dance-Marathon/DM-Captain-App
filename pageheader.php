@@ -57,7 +57,7 @@ function matt_error_handler($number, $message, $file, $line, $vars)
     }  
 }  
 // We should use our custom function to handle errors.  
-set_error_handler('matt_error_handler'); 
+//set_error_handler('matt_error_handler'); 
 //ini_set('session.cookie_domain', '.mydmlanding.com' );
 //session_set_cookie_params(60*60,"/",".floridadm.org",false,false);
   //ini_set('session.use_cookies', 0);

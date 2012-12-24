@@ -21,7 +21,7 @@
 	</thead> 
 	<tbody> 
 	<?php
-		$sql = mysql_query("SELECT * FROM overalls ORDER BY registered DESC");
+		$sql = mysql_query("SELECT * FROM Overalls ORDER BY registered DESC");
 		while($result = mysql_fetch_assoc($sql)) {
 			if ($result['registered']) {
 				$registered = "Yes";

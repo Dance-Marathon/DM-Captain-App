@@ -87,7 +87,7 @@ if (!isset($_SESSION['login'])) {
 	<table>
 	<tr><td>Team</td><td><select name="team">
 	<?php
-	$sql = mysql_query("SELECT *FROM teams");
+	$sql = mysql_query("SELECT *FROM Teams");
 	while($row = mysql_fetch_array($sql)) {
 		$teamName = $row['team'];
 		$id = $row['id'];

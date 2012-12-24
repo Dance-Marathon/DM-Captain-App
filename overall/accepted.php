@@ -35,8 +35,6 @@ include_once("../pageheader.php");
 include_once("../teamMatch.php");
 if (isset($_SESSION['login']))
 {
-	if ($_SESSION['login'] == "1c7943b67b2c1a6f9b1468ee9e830509")
-	{
 
 ?>
 
@@ -44,6 +42,7 @@ if (isset($_SESSION['login']))
 <link href="../styles.css" rel="stylesheet" type="text/css" />
 <link href='http://fonts.googleapis.com/css?family=Kameron:700,400' rel='stylesheet' type='text/css'>
 <link href="tablesorter/themes/blue/style.css" rel="stylesheet" type="text/css" />
+<link href="overallStyles.css" rel="stylesheet" type="text/css" />
 <script src="../jquery-1.7.2.min.js" type="text/javascript"></script>
 <script src="../jquery.maskedinput-1.3.js" type="text/javascript"></script>
 <script src="../jquery-validation-1.9.0/jquery.validate.min.js" type="text/javascript"></script>
@@ -68,9 +67,18 @@ if (isset($_SESSION['login']))
 </head>
 <body>
 <div class="overall_container">
+<?php 
+if (isset($_SESSION['login'])) {
+echo '<ul id="nav">
+	<li><a href="accepted.php?team='.$_SESSION["team"].'" onClick="displayOverallSection();return false">Confirmed Users</a></li>
+	<li><a href="list.php?team='.$_SESSION["team"].'&display=uncomfirmed">Accept Users</a></li>
+	<li><a href="interview.php?team='.$_SESSION["team"].'">Interviews</a></li>
+	<li><a href="#" onClick="displayQuestionSection();return false">Questions</a></li>
+</ul>';
+}
 
-    
-<?php
+$result = mysql_query("SELECT * FROM Teams");
+$numTeams = mysql_num_rows($result);
 
 if (isset($_GET['team']))
 	$team=mysql_escape_string($_GET['team']);
@@ -81,7 +89,13 @@ if ($team > 1)
 ?>
 <h1 style="text-align:left; margin-left:20px;"><a href="accepted.php?team=<?php echo ($team - 1);?>">Previous Team</a></h1><?php } ?>
 <h1 style="text-align:left; margin-left:20px;"><?php echo getTeam($team); ?> </h1>
+<?php
+if ($team < $numTeams) {
+?>
 <h1 style="text-align:left; margin-left:20px;"><a href="accepted.php?team=<?php echo ($team + 1);?>">Next Team</a></h1>
+<?php
+}
+?>
 
 <table id="myTable" class="tablesorter"> 
 <thead> 
@@ -200,12 +214,7 @@ $(document).ready(function()
 </div>
 </div>
 </div>
-<?php 	}
-	else
-	{
-		$_SESSION['redirect']='accepted.php?team='.$team;
-		header("Location:index.php");
-	}
+<?php 
 }
 else
 {

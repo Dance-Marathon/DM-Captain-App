@@ -41,8 +41,6 @@ else
 
 if (isset($_SESSION['login']))
 {
-	if ($_SESSION['login'] == "1c7943b67b2c1a6f9b1468ee9e830509")
-	{
 
 ?>
 
@@ -193,12 +191,7 @@ $(document).ready(function()
 </div>
 </div>
 </div>
-<?php 	}
-	else
-	{
-		$_SESSION['redirect']='unconfirmed.php?team='.$team;
-		header("Location:index.php");
-	}
+<?php 
 }
 else
 {

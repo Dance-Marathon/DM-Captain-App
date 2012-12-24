@@ -7,7 +7,7 @@
 	if ($value == 0)
 		$value = "";
 	if (isset($time) && isset($team) && isset($date) && isset($value)) {
-		mysql_query("UPDATE interviews SET `$time` = '$value' WHERE Date = '$date' AND Team = '$team'") or die(mysql_error());
+		mysql_query("UPDATE Interviews SET `$time` = '$value' WHERE Date = '$date' AND Team = '$team'") or die(mysql_error());
 	}else{
 		echo "Error";
 	}

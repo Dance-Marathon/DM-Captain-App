@@ -38,7 +38,7 @@ include_once("../pageheader.php");
 $team = $_POST['team'];
 $password = md5($_POST['password']);
 $success = false;
-$sql = mysql_query("SELECT * FROM overalls");
+$sql = mysql_query("SELECT * FROM Overalls");
 while($result = mysql_fetch_assoc($sql)) {
 	if ($password == $result['password'] )
 	{

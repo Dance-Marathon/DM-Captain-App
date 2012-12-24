@@ -72,7 +72,7 @@ if (isset($_SESSION['login']))
 <?php 
 if (isset($_SESSION['login'])) {
 echo '<ul id="nav">
-	<li><a href="list.php?team='.$_SESSION["team"].'" onClick="displayOverallSection();return false">Confirmed Users</a></li>
+	<li><a href="accepted.php?team='.$_SESSION["team"].'" onClick="displayOverallSection();return false">Confirmed Users</a></li>
 	<li><a href="list.php?team='.$_SESSION["team"].'&display=uncomfirmed">Accept Users</a></li>
 	<li><a href="interview.php?team='.$_SESSION["team"].'">Interviews</a></li>
 	<li><a href="#" onClick="displayQuestionSection();return false">Questions</a></li>

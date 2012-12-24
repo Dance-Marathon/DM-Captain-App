@@ -38,7 +38,7 @@ $password = md5(mysql_real_escape_string($_POST['password']));
 $team = mysql_real_escape_string($_POST['team']);
 $result = "Something went wrong!";
 if (isset($ufid) && isset($uflEmail) && isset($password) && isset($team)) {
-	mysql_query("UPDATE overalls SET password = '$password', email = '$uflEmail', team = '$team', registered = '1' WHERE ufid = '$ufid' AND registered = '0'");
+	mysql_query("UPDATE Overalls SET password = '$password', email = '$uflEmail', team = '$team', registered = '1' WHERE ufid = '$ufid' AND registered = '0'");
 	$result = "You have been registered!";
 }
 ?>

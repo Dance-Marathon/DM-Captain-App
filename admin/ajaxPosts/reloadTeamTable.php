@@ -1,7 +1,7 @@
 <?php
 include_once("../../pageheader.php");
 
-	$sql = mysql_query("SELECT * FROM teams");
+	$sql = mysql_query("SELECT * FROM Teams");
 	while($row = mysql_fetch_array($sql)) {
 		$teamName = $row['team'];
 		$id = $row['id'];

@@ -69,10 +69,10 @@ if (isset($_SESSION['login'])) {
 <?php 
 if (isset($_SESSION['login'])) {
 echo '<ul id="nav">
-	<li><a href="list.php?team='.$_SESSION["team"].'" onClick="displayOverallSection();return false">Confirmed Users</a></li>
+	<li><a href="accepted.php?team='.$_SESSION["team"].'" onClick="displayOverallSection();return false">Confirmed Users</a></li>
 	<li><a href="list.php?team='.$_SESSION["team"].'&display=uncomfirmed">Accept Users</a></li>
 	<li><a href="interview.php?team='.$_SESSION["team"].'">Interviews</a></li>
-	<li><a href="#" onClick="displayQuestionSection();return false">Questions</a></li>
+	<li><a href="questions.php?team='.$_SESSION["team"].'">Questions</a></li>
 </ul>';
 }
 ?>
@@ -83,20 +83,15 @@ echo '<ul id="nav">
 if (!isset($_SESSION['login'])) {
 ?>
 <div id="mainLogin">
+	<p>Don't have an account? <a href="signup.php">Click here</a> to sign up.</p>
 	<form method="post" action="processLogin.php">
 	<table>
-	<tr><td>Team</td><td><select name="team">
-	<?php
-	$sql = mysql_query("SELECT *FROM Teams");
-	while($row = mysql_fetch_array($sql)) {
-		$teamName = $row['team'];
-		$id = $row['id'];
-		echo "<option value = '".$id."'>".$teamName."</option>";
-	}
-	?>
-	</select></td></tr>
+	<tr><td>Team</td><td>
+		<?=getTeams();?>
+	</td></tr>
 	<tr><td>Password</td><td><input id="password" name="password" type="password" /></td></tr>
-	<tr><td></td><td><input type="submit" action="processLogin.php" value="Login"/> or <a href="signup.php">Sign Up</a></td>
+	<tr><td></td><td><input type="submit" action="processLogin.php" value="Login"/></td></tr>
+	<tr><td></td><td><a href = "#">Forgot Password</a></td></tr>
 	</table>
 	</form>
 </div>

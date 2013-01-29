@@ -33,6 +33,16 @@ This software includes the following open source plugins listed below:
 	
 include_once("../pageheader.php");
 include_once("../teamMatch.php");
+
+if (isset($_SESSION['team']))
+{
+	$team = mysql_escape_string($_SESSION['team']);
+}
+else
+{
+	$team = 0;
+}
+
 if (isset($_SESSION['login']))
 {
 
@@ -68,35 +78,71 @@ if (isset($_SESSION['login']))
 <body>
 <div class="overall_container">
 <?php 
-if (isset($_SESSION['login'])) {
 echo '<ul id="nav">
-	<li><a href="accepted.php?team='.$_SESSION["team"].'" onClick="displayOverallSection();return false">Confirmed Users</a></li>
-	<li><a href="list.php?team='.$_SESSION["team"].'&display=uncomfirmed">Accept Users</a></li>
-	<li><a href="interview.php?team='.$_SESSION["team"].'">Interviews</a></li>
-	<li><a href="#" onClick="displayQuestionSection();return false">Questions</a></li>
+	<li><a href="accepted.php?team='.$team.'" onClick="displayOverallSection();return false">Confirmed Users</a></li>
+	<li><a href="list.php?team='.$team.'&display=uncomfirmed">Accept Users</a></li>
+	<li><a href="interview.php?team='.$team.'">Interviews</a></li>
+	<li><a href="questions.php?team='.$team.'">Questions</a></li>
 </ul>';
-}
 
 $result = mysql_query("SELECT * FROM Teams");
 $numTeams = mysql_num_rows($result);
 
-if (isset($_GET['team']))
-	$team=mysql_escape_string($_GET['team']);
+function getTeamQuery() {
+global $team;
+if ($team)
+	$sql0 = mysql_query("SELECT * From Applicants WHERE accepted = $team");
 else
-	$team=1;
+	$sql0 = mysql_query("SELECT * From Applicants WHERE confirm = 1");
+	return $sql0;
+}
+
+
+
+?>
+<!--
 if ($team > 1)
 {
-?>
-<h1 style="text-align:left; margin-left:20px;"><a href="accepted.php?team=<?php echo ($team - 1);?>">Previous Team</a></h1><?php } ?>
-<h1 style="text-align:left; margin-left:20px;"><?php echo getTeam($team); ?> </h1>
-<?php
-if ($team < $numTeams) {
-?>
-<h1 style="text-align:left; margin-left:20px;"><a href="accepted.php?team=<?php echo ($team + 1);?>">Next Team</a></h1>
-<?php
+echo '
+<h1 style="text-align:left; margin-left:20px;"><a href="accepted.php?team='.($team - 1).'">Previous Team</a></h1>';
 }
-?>
+-->
+<h1 style="text-align:left; margin-left:20px;"><?=getTeam($team);?></h1>
+	<h2 style = "margin-left:30px;" id = "getEmails" class = "headerItem"><a href = "#" onClick="return false">Get Emails</a></h2>
+		<div id = "getEmailsBody" style = "margin-left: 50px; display:none">
+		<?php
+			$sql1 = getTeamQuery();
+			$count = 1;
+			$setMax = 25;
+			$currentSetMax = 25;
+			$lower = ($setMax-$currentSetMax)+1;
+			$upper = $currentSetMax;
+			echo "<p>".$lower." - ".$upper.":<br />
+				<textarea style = 'width:400px; height:100px'>";
+			while ($result = mysql_fetch_array($sql1)) {
+				if ($count-1 == $currentSetMax && $count != 1) {
+					echo "</textarea></p>";
+					$lower = ($currentSetMax)+1;
+					$upper = $currentSetMax+$setMax;
+					$currentSetMax += $setMax;
+					echo "
+						<p>".$lower." - ".$upper.":<br />
+						<textarea style = 'width:400px; height:100px'>";
+				}
+				echo $result["uflemail"].", ";
+				$count++;
+			}
+			echo "</textarea></p>";
+		?>
+		</div>
+	<h2 style = "margin-left: 30px" id = "listUsers" class = "headerItem"><a href = "#" onClick="return false">List Users</a></h2>
+<!--
+if ($team < $numTeams) {
+echo '<h1 style="text-align:left; margin-left:20px;"><a href="accepted.php?team='.($team + 1).'">Next Team</a></h1>';
 
+}
+-->
+<div id = "listUsersBody">
 <table id="myTable" class="tablesorter"> 
 <thead> 
 <tr> 
@@ -122,13 +168,7 @@ if ($team < $numTeams) {
 
 
 <?php
-
-if ($team)
-	$sql0 = "SELECT * From Applicants WHERE accepted = $team";
-else
-	$sql0 = "SELECT * From Applicants WHERE confirm = 1";
-$sql0 = mysql_query($sql0);
-
+$sql0 = getTeamQuery();
 $i=0;
 while ($applicant = mysql_fetch_assoc($sql0))
 {
@@ -195,10 +235,23 @@ $i++;
 
 </tbody> 
 </table> 
+</div>
+
 <?php echo '<p style="margin-left:10px;">'. $i .' rows</p>'; ?>
+
 <script type="text/javascript">
 $(document).ready(function() 
     { 
+		$(".headerItem").click(function () {
+			var myId = $(this).attr('id');
+			var bodyName = myId+"Body";
+			if ($("#"+bodyName).is(":visible")) {
+				$("#"+bodyName).hide();
+			}else{
+				$("#"+bodyName).show();
+			}
+		});
+		
         $("#myTable").tablesorter({
 	        
    	        sortList: [[0,0]]

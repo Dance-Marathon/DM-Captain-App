@@ -40,7 +40,7 @@ $password = md5($_POST['password']);
 $success = false;
 $sql = mysql_query("SELECT * FROM Overalls");
 while($result = mysql_fetch_assoc($sql)) {
-	if ($password == $result['password'] )
+	if ($password == $result['password'] && $team == $result['team'])
 	{
 		$_SESSION['login'] = $password;
 		$_SESSION['team'] = $team;

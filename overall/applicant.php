@@ -46,9 +46,9 @@ else
 	$ufid = 0;
 }
 
-if (isset($_GET['team']))
+if (isset($_SESSION['team']))
 {
-	$team = $_GET['team'];
+	$team = mysql_escape_string($_SESSION['team']);
 }
 else
 {
@@ -57,8 +57,7 @@ else
 
 if (isset($_SESSION['login']))
 {
-	if ($_SESSION['login'] == "1c7943b67b2c1a6f9b1468ee9e830509")
-	{
+
 
 
 if ($ufid)
@@ -234,11 +233,7 @@ styles.css" rel="stylesheet" type="text/css" />
 
 </body>
 </html> <?php } ?>
-<?php 	}
-	else
-	{
-		header("Location:index.php");
-	}
+<?php 
 }
 else
 {

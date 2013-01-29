@@ -13,6 +13,7 @@
 	<table id = "overallTable" class="tablesorter">
 	<thead> 
 	<tr> 
+		<th>Team</th>
 		<th>UFID</th>
 		<th>Email</th> 
 		<th>Registered</th> 
@@ -23,6 +24,7 @@
 	<?php
 		$sql = mysql_query("SELECT * FROM Overalls ORDER BY registered DESC");
 		while($result = mysql_fetch_assoc($sql)) {
+			$teamName = getTeam($result['team']);
 			if ($result['registered']) {
 				$registered = "Yes";
 			} else {
@@ -32,10 +34,12 @@
 				$result['email'] = "-";
 			}
 			echo "<tr id='".$result['ufid']."Row'>
-			<td>".$result['ufid']."</td>
+			<td>".$teamName."</td>
+			<td><a href='../overall/applicant.php?ufid=".$result['ufid']."'>".$result['ufid']."</a></td>
 			<td>".$result['email']."</td>
 			<td>".$registered."</td>
-			<td><a href='#' onClick='removeOverall(".$result['ufid'].");return false'>Remove</a> </td></tr>";
+			<td><a href='#' onClick='removeOverall(".$result['ufid'].");return false'>Remove</a> </td>
+			</tr>";
 		}
 	?>
 	</tbody>

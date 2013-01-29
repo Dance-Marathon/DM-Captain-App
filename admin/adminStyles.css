@@ -27,6 +27,14 @@
 	background-color: #fff; 
 }
 
+.checkList {
+	font-size: 13px;
+	color: #4F4F4F;
+	margin:auto;
+	border:1px solid #CCC;
+	padding: 15px;
+}
+
 .pageSection {
 	text-align:center;
 	display: none;
@@ -39,10 +47,18 @@
 }
 
 #overallTable {
-	width:600px;
+	width:700px;
 	margin: 0 auto 20px auto;
 }
 
 #overallTable td {
 	
+}
+
+#tableUpdateDiv {
+	margin-bottom: 30px;
+}
+
+#dateList {
+	font-weight: bold;
 }

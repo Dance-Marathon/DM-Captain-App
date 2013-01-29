@@ -33,6 +33,16 @@ This software includes the following open source plugins listed below:
 	
 include_once("../pageheader.php");
 include_once("../teamMatch.php");
+
+if (isset($_SESSION['team']))
+{
+	$team = mysql_escape_string($_SESSION['team']);
+}
+else
+{
+	$team = 0;
+}
+
 if (isset($_SESSION['login']))
 {
 
@@ -70,19 +80,12 @@ if (isset($_SESSION['login']))
 
     
 <?php 
-if (isset($_SESSION['login'])) {
 echo '<ul id="nav">
-	<li><a href="accepted.php?team='.$_SESSION["team"].'" onClick="displayOverallSection();return false">Confirmed Users</a></li>
-	<li><a href="list.php?team='.$_SESSION["team"].'&display=uncomfirmed">Accept Users</a></li>
-	<li><a href="interview.php?team='.$_SESSION["team"].'">Interviews</a></li>
-	<li><a href="#" onClick="displayQuestionSection();return false">Questions</a></li>
+	<li><a href="accepted.php?team='.$team.'" onClick="displayOverallSection();return false">Confirmed Users</a></li>
+	<li><a href="list.php?team='.$team.'&display=uncomfirmed">Accept Users</a></li>
+	<li><a href="interview.php?team='.$team.'">Interviews</a></li>
+	<li><a href="questions.php?team='.$team.'">Questions</a></li>
 </ul>';
-}
-
-if (isset($_GET['team']))
-	$team=mysql_escape_string($_GET['team']);
-else
-	$team=0;
 	
 if (isset($_GET['display']) && ($_GET['display'] == "all" || $_GET['display'] == "uncomfirmed")) {
 	$display=mysql_escape_string($_GET['display']);

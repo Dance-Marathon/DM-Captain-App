@@ -1,7 +1,34 @@
 <?php
-include_once("../pageheader.php");
-include_once("../teamMatch.php"); 
-/*
+
+include_once("pageheader.php");
+include_once("requirelogin.php");
+include_once("teamMatch.php"); 
+
+// Update and/or make teams table
+	mysql_query("CREATE TABLE IF NOT EXISTS `teams` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `team` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14");
+
+	mysql_query("INSERT INTO `teams` (`id`, `team`) VALUES
+(1, 'Art/Layout'),
+(2, 'Community Events'),
+(3, 'Dancer Relations'),
+(4, 'Entertainment'),
+(5, 'Family Relations'),
+(6, 'Finance'),
+(7, 'Hospitality'),
+(8, 'Marketing'),
+(9, 'Morale'),
+(10, 'Operations'),
+(11, 'Public Relations'),
+(12, 'Recruitment'),
+(13, 'Technology'),
+(14, 'All')");
+
+// remove hyphens from ufid's in applicants
+
 $sql = mysql_query("SELECT * FROM Applicants");
 
 while($row = mysql_fetch_array($sql)) {
@@ -11,6 +38,7 @@ while($row = mysql_fetch_array($sql)) {
 		mysql_query("UPDATE Applicants SET ufid = '$ufid'  WHERE uflemail ='$email'");
 }
 
+//remove hyphen from ufids in interviews 
 
 $sql = mysql_query("SELECT * FROM Interviews");
 
@@ -39,5 +67,6 @@ while($row = mysql_fetch_array($sql, MYSQL_NUM)) {
 			}
 		}
 }
-*/
+
+
 ?>

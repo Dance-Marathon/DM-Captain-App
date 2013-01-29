@@ -30,10 +30,9 @@ This software includes the following open source plugins listed below:
 	Link:		http://digitalbush.com/projects/masked-input-plugin/
 	Copyright:	Copyright (c) 2007-2011 Josh Bush (digitalbush.com)
 	License:	MIT License (http://www.opensource.org/licenses/mit-license.php)*/
-	
+
 include_once("adminFunctions.php");
-?>
-<?php
+
 function ae_detect_ie()
 {
     if (isset($_SERVER['HTTP_USER_AGENT']) && 
@@ -42,7 +41,19 @@ function ae_detect_ie()
     else
         return false;
 }
+
+if(mysql_num_rows(mysql_query("SHOW TABLES LIKE 'teams'"))==0) {
+	include_once("../updateSQL.php");
+	echo "
+	<div class='toDo'>
+	Database information not up to date. Updating now...<br />
+	Removing UFID hyphens from database...<br />
+	Adding teams tables.
+	</div>";
+}
+
 if(isset($_POST['ufid']) && isset($_POST['password'])) {
+	//check login
 	$ufid = mysql_real_escape_string($_POST['ufid']);
 	$password = md5(mysql_real_escape_string($_POST['password']));
 	$result = mysql_query("SELECT * FROM Admin WHERE ufid = '$ufid' AND password = '$password'");
@@ -63,6 +74,9 @@ if(isset($_POST['ufid']) && isset($_POST['password'])) {
 <script src="../jquery-validation-1.9.0/jquery.validate.min.js" type="text/javascript"></script>
 <script src="../livevalidation_standalone.compressed.js" type="text/javascript"></script>
 <script type="text/javascript" src="tablesorter/jquery.tablesorter.js"></script> 
+<link rel="stylesheet" media="screen" type="text/css" href="datePicker/css/datepicker.css" />
+<script type="text/javascript" src="datePicker/js/date.js"></script>
+<script type="text/javascript" src="datePicker/js/jquery.datePicker.js"></script>
 
 <script type="text/javascript">
 
@@ -169,26 +183,66 @@ We apologize but Internet Explorer is not supported on this application. Please 
 <?php  if (!(ae_detect_ie())) {  ?>
 
 <script language="javascript">
+Date.firstDayOfWeek = 0;
+Date.format = 'mm/dd/yyyy';
+$(function()
+{
+	$(this).dpDisplay();
+	$('.date-pick').datePicker(
+			{
+				createButton:false,
+				closeOnSelect:false,
+				selectMultiple:true
+			}
+	).bind(
+			'click',
+			function()
+			{
+				$(this).dpDisplay();
+				this.blur();
+				return false;
+			}
+	).bind(
+			'dpClosed',
+			function(e, selectedDates)
+			{
+				$("#dateList").html(selectedDates[0]);
+				for (i = 0; i < selectedDates.length; i++) {
+					$("#dateList").append("<br />"+selectedDates[i]);
+				}
+			}
+	);
+});
 
 function displaySection(identifier) {
 	$("#secondaryContainer").children().hide();
 	$("#"+identifier+"Section").fadeIn('slow');
+	
+	if (identifier == "question") {
+	//needs to be done to load the initial questions
+	//even if no questions are in the database already
+		updateQuestions();
+	}
 }
 
 function addOverall() {
 	overallUFID = $("#overallUFID").val();
-	$.post("ajaxPosts/addOverall.php", {ufid: overallUFID}, function(data) {
+	team = $("#teamList").val();
+	$.post("ajaxPosts/addOverall.php", {ufid: overallUFID, team: team}, function(data) {
 			$("#tableUpdateDiv").load('reloadOverallTable.php');
 			
 	});
 }
 
 function removeOverall(overallUFID) {
-	rowName = overallUFID+"Row";
-	$("#"+rowName).fadeOut('slow');
-	$.post("ajaxPosts/removeOverall.php", {ufid: overallUFID}, function(data) {
-			
-	});
+	var answer = confirm("Are you sure you wish to remove this overall?");
+	if (answer) {
+		rowName = overallUFID+"Row";
+		$("#"+rowName).fadeOut('slow');
+		$.post("ajaxPosts/removeOverall.php", {ufid: overallUFID}, function(data) {
+				
+		});
+	}
 }
 
 function addTeam() {
@@ -200,10 +254,25 @@ function addTeam() {
 }
 
 function removeTeam(id) {
-	$.post("ajaxPosts/removeTeam.php", {id: id}, function(data) {
-			$("#teamTable").load('ajaxPosts/reloadTeamTable.php');
+	var answer = confirm("Are you sure you wish to remove this team?");
+	if (answer) {
+		$.post("ajaxPosts/removeTeam.php", {id: id}, function(data) {
+				$("#teamTable").load('ajaxPosts/reloadTeamTable.php');
+		});
+	}
+}
+
+function updateQuestions() {
+	var numOfQuestions = $("#numOfQuestions option:selected").val();
+	$.post("ajaxPosts/loadQuestions.php",{numOfQuestions: numOfQuestions},
+	function(data) {
+		$("#questionDiv").html(data);
 	});
 }
+
+$("#numOfQuestions").blur(function() {
+	updateQuestions();
+});
 
 $(document).ready(function() 
     { 

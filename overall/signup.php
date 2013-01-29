@@ -65,23 +65,19 @@ include_once("../pageheader.php");
 <div align="center">
 <form method="post" action="processSignup.php" id="myForm">
 <table>
-<tr><td>Team</td><td><select name="team">
-				<option value = 0>All</option>
-				<option value = 1>Art/Layout</option>
-				<option value = 2>Community Events</option>
-				<option value = 3>Dancer Relations</option>
-				<option value = 4>Entertainment</option>
-				<option value = 5>Family Relations</option>
-				<option value = 6>Finance</option>
-				<option value = 7>Hospitality</option>
-				<option value = 8>Marketing</option>
-				<option value = 9>Morale</option>
-				<option value = 10>Operations</option>
-				<option value = 11>Public Relations</option>
-				<option value = 12>Recruitment</option>
-				<option value = 13>Technology</option>
-</select></td></tr>
 <tr><td>UFID</td><td><input id="ufid" name="ufid" type="input" /></td></tr>
+<tr><td>Team</td><td>
+	<select name="team" id="teamList" style = 'width:156px'>
+	<?php
+		$sql = mysql_query("SELECT *FROM Teams LIMIT 1,13");
+		while($row = mysql_fetch_array($sql)) {
+			$teamName = $row['team'];
+			$id = $row['id'];
+			echo "<option value = '".$id."'>".$teamName."</option>";
+		}
+	?>
+	</select>
+</td></tr>
 <tr><td>UFL Email</td><td><input id="uflEmail" name="uflEmail" type="input" /></td></tr>
 <tr><td>Choose Password </td><td><input id="password" name="password" type="password" /></td></tr>
 <tr><td>Re-type Password </td><td><input id="confirm" name="confirm" type="password" /></td></tr>
@@ -110,17 +106,21 @@ include_once("../pageheader.php");
 
 var uflemail = new LiveValidation('uflEmail', {onlyOnSubmit: true, validMessage:" "});
 uflemail.add( Validate.Email, {failureMessage: "Must be a UFL Email"});
-uflemail.add( Validate.Format, { pattern: /@ufl.edu/ , failureMessage: "Must be a UFL Email"});
+uflemail.add( Validate.Format, { pattern: /@ufl.edu/ , failureMessage: " Must be a UFL Email"});
 
 var password = new LiveValidation('password', {onlyOnSubmit: true, validMessage:" "});
 password.add(Validate.Length, { minimum:4 } );
 
 var confirm = new LiveValidation('confirm', {onlyOnSubmit: true, validMessage:" "});
-confirm.add(Validate.Confirmation, { match: 'password', failureMessage: "Your passwords don't match!" } );
+confirm.add(Validate.Confirmation, { match: 'password', failureMessage: " Your passwords don't match!" } );
 
 var ufid = new LiveValidation('ufid', {onlyOnSubmit: true, validMessage:" "});
 ufid.add( Validate.Presence );
-ufid.add( Validate.Custom, { against: function(value){ return isValidUfid(value) }, failureMessage: "UFID is not valid" } );
+ufid.add( Validate.Custom, { against: function(value){ return isValidUfid(value) }, failureMessage: " UFID is not valid" } );
+
+var team = new LiveValidation('teamList', {onlyOnSubmit: true, validMessage:" "});
+team.add( Validate.Presence );
+team.add( Validate.Custom, { against: function(value){ return isValidTeam(value) }, failureMessage: " This UFID is not registered for this team" } );
 
 function isValidUfid(ufid) {
 	returnType = false;
@@ -128,6 +128,25 @@ function isValidUfid(ufid) {
 		type: "POST",
 		url: "ajaxPosts/validateUFID.php",
 		data: {ufid: ufid},
+		async: false,
+		success: function(data) {
+			if (data == 1) {
+				returnType = true;
+			}else{
+				returnType = false;
+			}
+		}	
+	});
+	return returnType;
+};
+
+function isValidTeam(team) {
+	ufid = $("#ufid").val();
+	returnType = false;
+	$.ajax({
+		type: "POST",
+		url: "ajaxPosts/validateTeam.php",
+		data: {ufid: ufid, team: team},
 		async: false,
 		success: function(data) {
 			if (data == 1) {
